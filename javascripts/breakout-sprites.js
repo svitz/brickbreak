@@ -100,9 +100,12 @@
         x: 60,
         y: 270
       },p);
-
+      this.on("mini");
       this.add("animation");
-      this.play("default");
+      this.play("big");
+
+
+
 
       // Wait til we are inserted, then listen for events on the stage
       this.on("inserted");
@@ -113,6 +116,10 @@
 
     inserted: function() {
       this.stage.on("start",this,"start");
+    },
+
+    mini: function() {
+      this.play("mini");
     },
 
     collide: function(col) {
@@ -233,7 +240,7 @@
 
       this.on("powerdown");
       this.on("powerup");
-      this.on("mini");
+
     },
 
     step: function(dt) {
@@ -266,12 +273,8 @@
     powerdown: function() {
       this.sheet("paddlebig",true);
       this.p.powerdown = 10;
-    },
+    }
 
-    mini: function() {
-      var ball = this.Q.Ball();
-      ball.scale = 0.5;
-    },
 
   });
 
@@ -316,7 +319,7 @@
     hit: function() {
       this.destroy();
       Q.audio.play("powerdown.ogg");
-      Q("Paddle").trigger("mini");
+      Q("Ball").trigger("mini");
     },
 
     step: function(dt) {
