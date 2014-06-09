@@ -92,7 +92,6 @@
         sheet:"ball",
         sprite:"ball",
         speed: 200,
-        powermini: 0,
         collisionMask: Q.SPRITE_DEFAULT,
         scale:1,
         vx: 0,
@@ -100,11 +99,9 @@
         x: 60,
         y: 270
       },p);
-      this.on("mini");
+
       this.add("animation");
       this.play("big");
-
-
 
 
       // Wait til we are inserted, then listen for events on the stage
@@ -116,10 +113,6 @@
 
     inserted: function() {
       this.stage.on("start",this,"start");
-    },
-
-    mini: function() {
-      this.play("mini");
     },
 
     collide: function(col) {
@@ -235,11 +228,12 @@
         y: 376,
         x: 0,
         powerdown: 0,
-        powermini: 0
+        mini: 0
       },p);
 
       this.on("powerdown");
       this.on("powerup");
+      this.on("mini");
 
     },
 
@@ -249,6 +243,7 @@
       if(Q("Ball").length == 0) {
 				Q.state.dec("lives",1);
 				if(Q.state.get("lives") == 0) {
+          Q.audio.play("over.ogg");
 					Q.stageScene("gameOver");
 				} else {
           this.stage.insert(new Q.Ball());
@@ -259,7 +254,15 @@
       if(this.p.powerdown > 0) {
         this.p.powerdown -= dt;
         if(this.p.powerdown <= 0) {
-          Q.audio.play("recover.ogg");
+          Q.audio.play("mini.ogg");
+          this.sheet("paddlelg",true);
+        }
+      }
+
+      if(this.p.mini > 0) {
+        this.p.mini -= dt;
+        if(this.p.mini <= 0) {
+          Q.audio.play("grow.ogg");
           this.sheet("paddlelg",true);
         }
       }
@@ -272,6 +275,10 @@
 
     powerdown: function() {
       this.sheet("paddlebig",true);
+      this.p.mini = 10;
+    },
+    mini: function() {
+      this.sheet("paddlesmall",true);
       this.p.powerdown = 10;
     }
 
@@ -318,8 +325,8 @@
 
     hit: function() {
       this.destroy();
-      Q.audio.play("powerdown.ogg");
-      Q("Ball").trigger("mini");
+      Q.audio.play("mini.ogg");
+      Q("Paddle").trigger("mini");
     },
 
     step: function(dt) {

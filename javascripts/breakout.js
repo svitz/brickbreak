@@ -14,7 +14,7 @@ window.addEventListener('load',function() {
      // Images
      "bg_prerendered.png","tiles.png","logo.png",
      // Audio
-     "countdownBlip.ogg","powerdown.ogg", "breakblock.ogg", "blip.ogg", "cblip.ogg",
+     "countdownBlip.ogg", "laser.ogg", "over.ogg", "mini.ogg", "grow.ogg", "powerdown.ogg", "breakblock.ogg", "blip.ogg", "cblip.ogg",
      "powerup.ogg", "recover.ogg", "releasepower.ogg", "hithard.ogg", "hitpaddle.ogg",
       // Data
       "bg.tmx", "sprites.json"
@@ -27,8 +27,7 @@ window.addEventListener('load',function() {
 
       // Now add in the animations for the various sprites
       Q.animations("ball", {
-        big: { frames: [0,1,2,3,4], rate: 1/4, loop: false },
-        mini:{ frames: [5,6,7], rate: 1/4, loop: false }
+        big: { frames: [0,1,2,3,4], rate: 1/4, loop: false }
       });
       Q.animations("countdown", {
         countdown: { frames: [ 0,1,2 ], rate: 1.5, trigger: "start", loop: false }

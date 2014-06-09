@@ -4,7 +4,7 @@
     Q.state.set("level",0);
 
     // Clear the hud out
-    Q.clearStage(1); 
+    Q.clearStage(1);
 
     var bg = stage.insert(new Q.Background({ type: Q.SPRITE_UI }));
     bg.on("touch",function() {  Q.stageScene("level1");  });
@@ -82,7 +82,7 @@
 
     stage.insert(new Q.BlockTracker({ data: Q.asset(levelAsset) }));
 
-    stage.insert(new Q.Ball({ x: 50, y: 100 }));
+    stage.insert(new Q.Ball({ x: 50, y: 50 }));
     stage.insert(new Q.Countdown());
     stage.insert(new Q.Paddle());
 
@@ -91,14 +91,14 @@
   Q.scene("level1",function(stage) {
     // Set up the game state
     Q.state.reset({ score: 0, lives: 3, level: 1 });
-    
-    // Add the hud in 
-    Q.stageScene("hud"); 
 
-    // Call the helper methods to get the 
+    // Add the hud in
+    Q.stageScene("hud");
+
+    // Call the helper methods to get the
     // level all set up with blocks, a ball and a paddle
     setupLevel("level1",stage);
-    
+
     // Set up a listener for when the stage is complete
     // to load the next level
     stage.on("complete",function() { Q.stageScene("level2"); });
@@ -155,4 +155,3 @@
     }
   });
 };
-
